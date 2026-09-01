@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artificial Intelligence for Everyone — book &amp; app</title>
+<meta name="description" content="A complete book and a free companion app for understanding, using and questioning AI. 24 chapters, 24 interactive labs, fully offline.">
+
+<meta property="og:title" content="Artificial Intelligence for Everyone">
+<meta property="og:description" content="A complete book and a free companion app for understanding, using and questioning AI. 24 chapters, 24 interactive labs, fully offline.">
+<meta property="og:image" content="assets/og-image.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
+
+<style>
+:root{
+  --brand:#24425E; --brand-deep:#1A3149; --brand-light:#E8EEF4;
+  --amber:#B56505; --amber2:#D08A2A; --amber-light:#FAF1E2;
+  --ink:#1D2530; --sub:#5B6470;
+  --bg:#ffffff; --bg-alt:#F7F6F3; --card:#ffffff; --line:#E6E4DF;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.65; font-size:16px;
+}
+h1,h2,h3,h4{font-family:Georgia,'Times New Roman',serif; font-weight:700; color:var(--brand-deep); margin:0 0 .45em 0;}
+a{color:var(--brand); text-decoration:none;}
+a:hover{text-decoration:underline;}
+.wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+code, .mono{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;}
+
+/* nav */
+nav.site{
+  position:sticky; top:0; z-index:20; background:rgba(255,255,255,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+nav.site .inner{max-width:1080px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px;}
+nav.site .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--ink); font-size:15px;}
+nav.site .brand img{width:28px; height:28px; border-radius:7px;}
+nav.site .links{display:flex; gap:22px; font-size:14px; font-weight:600;}
+nav.site .links a{color:var(--sub); white-space:nowrap;}
+nav.site .links a:hover{color:var(--brand); text-decoration:none;}
+@media (max-width:640px){
+  nav.site .links{gap:12px; font-size:13px;}
+  nav.site .brand-text{display:none;}
+}
+
+/* hero */
+header.hero{padding:64px 0 56px; background:linear-gradient(180deg,var(--brand-light) 0%, #fff 100%);}
+.hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:52px; align-items:center;}
+@media (max-width:800px){ .hero-grid{grid-template-columns:1fr; gap:36px;} .hero-grid .cover-col{order:-1; max-width:280px; margin:0 auto;} }
+.kicker{font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;}
+.hero h1{font-size:38px; line-height:1.18; margin-bottom:16px;}
+.hero .sub{font-size:17px; color:var(--sub); margin-bottom:26px; max-width:52ch;}
+.byline{font-size:14px; color:var(--sub); margin-top:22px;}
+.btn-row{display:flex; flex-wrap:wrap; gap:12px;}
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:10px;
+  font-weight:700; font-size:14.5px; border:1.5px solid transparent; cursor:pointer;
+}
+.btn-primary{background:var(--brand); color:#fff;}
+.btn-primary:hover{background:var(--brand-deep); text-decoration:none;}
+.btn-secondary{background:#fff; color:var(--brand-deep); border-color:var(--brand);}
+.btn-secondary:hover{background:var(--brand-light); text-decoration:none;}
+.btn-ghost{background:transparent; color:var(--sub); border-color:var(--line);}
+.btn-ghost:hover{border-color:var(--sub); text-decoration:none;}
+.cover-col img{width:100%; max-width:320px; border-radius:10px; box-shadow:0 24px 48px -12px rgba(26,49,73,.35); display:block; margin:0 auto;}
+
+/* value props */
+section.values{padding:54px 0; border-bottom:1px solid var(--line);}
+.values h2{text-align:center; font-size:26px; margin-bottom:38px;}
+.values-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:30px;}
+@media (max-width:760px){ .values-grid{grid-template-columns:1fr;} }
+.value-card{text-align:left;}
+.value-num{display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:9px; background:var(--brand-light); color:var(--brand-deep); font-weight:700; font-family:Georgia,serif; margin-bottom:14px;}
+.value-card h3{font-size:18px; margin-bottom:8px;}
+.value-card p{color:var(--sub); font-size:14.5px; margin:0;}
+
+/* generic section */
+section.block{padding:64px 0; scroll-margin-top:70px;}
+.testing-box{scroll-margin-top:90px;}
+section.block.alt{background:var(--bg-alt);}
+.section-head{max-width:640px; margin:0 0 34px 0;}
+.section-head h2{font-size:28px;}
+.section-head p{color:var(--sub); font-size:15.5px; margin:0;}
+
+/* book section */
+.book-columns{display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start;}
+@media (max-width:800px){ .book-columns{grid-template-columns:1fr;} }
+.chapter-list{ margin:0 0 0 0; padding-left:20px; font-size:14.5px; color:var(--sub); }
+.chapter-list li{margin-bottom:5px;}
+.toc-group{margin-bottom:20px;}
+.toc-group h4{font-size:11.5px; letter-spacing:.05em; color:var(--amber); margin:0 0 8px 0;}
+table.toc-table{width:100%; border-collapse:collapse;}
+table.toc-table td{padding:4px 0; font-size:14.5px; vertical-align:top;}
+td.toc-num{width:72px; color:var(--sub); font-weight:600; white-space:nowrap;}
+td.toc-title{color:var(--ink);}
+.feature-list{list-style:none; margin:0 0 26px 0; padding:0;}
+.feature-list li{padding:10px 0 10px 30px; position:relative; font-size:14.5px; color:var(--sub); border-bottom:1px solid var(--line);}
+.feature-list li:last-child{border-bottom:none;}
+.feature-list li::before{content:"✓"; position:absolute; left:0; top:10px; color:var(--brand); font-weight:700;}
+.feature-list b{color:var(--ink);}
+.note{font-size:13.5px; color:var(--sub); margin:18px 0 0;}
+
+/* app section */
+.app-cards{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:40px;}
+@media (max-width:760px){ .app-cards{grid-template-columns:1fr 1fr;} }
+.app-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px;}
+.app-card .ic{font-size:22px; margin-bottom:8px;}
+.app-card h4{font-size:15px; margin:0 0 6px 0; color:var(--ink); font-family:inherit; font-weight:700;}
+.app-card p{font-size:13px; color:var(--sub); margin:0;}
+.shots{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin:34px 0 40px;}
+@media (max-width:760px){ .shots{grid-template-columns:repeat(2,1fr);} }
+.shots img{width:100%; border-radius:12px; border:1px solid var(--line); display:block; box-shadow:0 8px 20px -8px rgba(26,49,73,.25);}
+.testing-box{background:var(--amber-light); border:1px solid #EDD9B4; border-radius:16px; padding:28px 32px; margin-top:20px; text-align:center;}
+.testing-box h3{font-size:18px; color:#8A5A10; margin-bottom:10px;}
+.testing-box p{font-size:14.5px; color:#7A5414; max-width:56ch; margin:0 auto 18px;}
+.testing-box .btn-primary{background:#8A5A10;}
+.testing-box .btn-primary:hover{background:#6F470C;}
+.testing-box .steps{list-style:none; padding:0; margin:0 auto 20px; max-width:46ch; text-align:left; font-size:14px; color:#7A5414;}
+.testing-box .steps li{padding:6px 0 6px 28px; position:relative;}
+.testing-box .steps li span{position:absolute; left:0; top:6px; width:20px; height:20px; border-radius:50%; background:#8A5A10; color:#fff; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center;}
+
+/* footer */
+footer{background:var(--brand-deep); color:#D4DDE7; padding:56px 0 30px; margin-top:20px;}
+footer a{color:#fff;}
+.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; margin-bottom:40px;}
+@media (max-width:760px){ .footer-grid{grid-template-columns:1fr; gap:30px;} }
+footer h4{color:#fff; font-size:13px; letter-spacing:.05em; text-transform:uppercase; margin:0 0 14px 0; font-family:inherit;}
+footer p{font-size:13.5px; margin:0 0 10px 0; color:#C3D0DD;}
+footer ul{list-style:none; padding:0; margin:0;}
+footer li{margin-bottom:9px; font-size:13.5px;}
+.cite-box{background:rgba(255,255,255,.07); border-radius:10px; padding:14px 16px; font-size:12.5px; color:#D4DDE7; margin-top:10px;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.15); padding-top:22px; font-size:12.5px; color:#A6B7C7; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px;}
+</style>
+</head>
+<body>
+
+<nav class="site">
+  <div class="inner">
+    <div class="brand"><img src="assets/icon-512.png" alt=""> <span class="brand-text">Artificial Intelligence for Everyone</span></div>
+    <div class="links">
+      <a href="#book">Book</a>
+      <a href="#app">App</a>
+      <a href="https://github.com/ismaelabdulrahman/artificial-intelligence-for-everyone" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker">Free book · Open companion app · Fully offline</div>
+      <h1>An AI book, and an app with a working lab for every chapter</h1>
+      <p class="sub">24 chapters, from "what is artificial intelligence?" to designing a real AI system — plus a companion app that carries the whole book offline and adds <b>24 interactive labs</b> that compute their numbers on your own phone.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="book/Artificial-Intelligence-for-Everyone.pdf" target="_blank" rel="noopener">Download the PDF</a>
+        <a class="btn btn-ghost" href="#tester-access">Get it on Google Play</a>
+      </div>
+      <p class="byline">By Dr. Ismael Khorshed Abdulrahman — PhD, Electrical and Computer Engineering, Tennessee Technological University</p>
+    </div>
+    <div class="cover-col">
+      <img src="assets/cover.jpg" alt="Artificial Intelligence for Everyone — book cover">
+    </div>
+  </div>
+</header>
+
+<section class="values">
+  <div class="wrap">
+    <h2>Read it, try it, practise it</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-num">1</div>
+        <h3>Read</h3>
+        <p>Parts One to Three need no programming and no mathematics beyond school arithmetic. Every idea arrives in plain words first, and every claim carries a dated source you can check.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num">2</div>
+        <h3>Try</h3>
+        <p>Every chapter has an interactive lab in the app. Split a sentence into tokens, steer a model with temperature, build a retrieval system, attack a defenceless assistant — and watch the numbers move.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num">3</div>
+        <h3>Practise</h3>
+        <p>291 practice problems with worked steps, 267 self-test questions with explanations, and 296 glossary terms as flashcards that come back just before you would have forgotten them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="book">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The book</h2>
+      <p>A complete course in artificial intelligence as it actually stands. It starts with what AI is and is not, works through how language models really function, then teaches how to use them well — and ends by building real systems, with retrieval, agents, guardrails and the arithmetic of what any of it costs.</p>
+    </div>
+    <div class="book-columns">
+      <div>
+        <ul class="feature-list">
+          <li><b>The idea in plain words</b> before any notation appears.</li>
+          <li><b>Every equation explained</b> — each symbol named, with an "in words" line beside it.</li>
+          <li><b>A worked example with real numbers</b> you can follow with a pencil.</li>
+          <li><b>Dated, checkable sources</b> — 308 of them, and a re-check list for every figure that will age.</li>
+          <li><b>Runnable code</b> for all of Part Four, and a matching lab in the app for every chapter.</li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="book/Artificial-Intelligence-for-Everyone.pdf" target="_blank" rel="noopener">Download the PDF</a>
+        </div>
+        <p class="note">First Edition, 2026 · 588 pages · 130 figures · Parts One to Three need no programming; Part Four uses basic Python.</p>
+      </div>
+      <div>
+        <div class="toc-group">
+<h4>PART ONE — UNDERSTANDING ARTIFICIAL INTELLIGENCE</h4>
+<table class="toc-table">
+<tbody><tr><td class="toc-num">Ch. 1</td><td class="toc-title">What Artificial Intelligence Is — and Is Not</td></tr>
+<tr><td class="toc-num">Ch. 2</td><td class="toc-title">A Short History of Artificial Intelligence</td></tr>
+<tr><td class="toc-num">Ch. 3</td><td class="toc-title">AI, Automation, Algorithms and Ordinary Software</td></tr>
+<tr><td class="toc-num">Ch. 4</td><td class="toc-title">Types and Categories of AI</td></tr>
+</tbody></table></div>
+<div class="toc-group">
+<h4>PART TWO — HOW LANGUAGE AI WORKS</h4>
+<table class="toc-table">
+<tbody><tr><td class="toc-num">Ch. 5</td><td class="toc-title">Language as Data: Natural Language Processing</td></tr>
+<tr><td class="toc-num">Ch. 6</td><td class="toc-title">Transformers and Large Language Models</td></tr>
+<tr><td class="toc-num">Ch. 7</td><td class="toc-title">The Frontier: Today's Leading Models</td></tr>
+</tbody></table></div>
+<div class="toc-group">
+<h4>PART THREE — WORKING WITH AI</h4>
+<table class="toc-table">
+<tbody><tr><td class="toc-num">Ch. 8</td><td class="toc-title">Generative AI and Everyday Assistants</td></tr>
+<tr><td class="toc-num">Ch. 9</td><td class="toc-title">The Anatomy of a Good Prompt</td></tr>
+<tr><td class="toc-num">Ch. 10</td><td class="toc-title">Improving Prompts, Round by Round</td></tr>
+<tr><td class="toc-num">Ch. 11</td><td class="toc-title">Evaluating Answers and Verifying Facts</td></tr>
+<tr><td class="toc-num">Ch. 12</td><td class="toc-title">Hallucinations, Deepfakes and What to Believe</td></tr>
+<tr><td class="toc-num">Ch. 13</td><td class="toc-title">Using AI Responsibly</td></tr>
+</tbody></table></div>
+<div class="toc-group">
+<h4>PART FOUR — BUILDING AI SYSTEMS</h4>
+<table class="toc-table">
+<tbody><tr><td class="toc-num">Ch. 14</td><td class="toc-title">Talking to a Model from Code</td></tr>
+<tr><td class="toc-num">Ch. 15</td><td class="toc-title">Embeddings, Semantic Search and Vector Databases</td></tr>
+<tr><td class="toc-num">Ch. 16</td><td class="toc-title">Retrieval-Augmented Generation</td></tr>
+<tr><td class="toc-num">Ch. 17</td><td class="toc-title">Tools, Function Calling and the Model Context Protocol</td></tr>
+<tr><td class="toc-num">Ch. 18</td><td class="toc-title">AI Agents and Agentic Workflows</td></tr>
+<tr><td class="toc-num">Ch. 19</td><td class="toc-title">Multi-Agent Systems</td></tr>
+<tr><td class="toc-num">Ch. 20</td><td class="toc-title">Evaluating, Monitoring and Observing AI Systems</td></tr>
+<tr><td class="toc-num">Ch. 21</td><td class="toc-title">Guardrails: Prompt Injection, Privacy and Security</td></tr>
+<tr><td class="toc-num">Ch. 22</td><td class="toc-title">Open Models, Fine-Tuning and Running Models Locally</td></tr>
+<tr><td class="toc-num">Ch. 23</td><td class="toc-title">Reasoning Models, Multimodal Models and Embodied AI</td></tr>
+<tr><td class="toc-num">Ch. 24</td><td class="toc-title">Designing Real AI Systems</td></tr>
+</tbody></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt" id="app">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The companion app</h2>
+      <p>The whole book on your device, plus a laboratory for every chapter. No account, no internet connection, no permissions at all — and nothing you do ever leaves your phone.</p>
+    </div>
+
+    <div class="app-cards">
+      <div class="app-card"><div class="ic">📖</div><h4>Read</h4><p>All 24 chapters as 151 lessons, set for a phone, with every figure, table and worked example — and the printed 588-page edition alongside.</p></div>
+      <div class="app-card"><div class="ic">🧪</div><h4>Labs</h4><p>24 interactive labs, one per chapter. Every number is computed on the device as you watch — nothing is pre-recorded and no lab contacts a model.</p></div>
+      <div class="app-card"><div class="ic">✏️</div><h4>Practice</h4><p>291 problems by level with worked steps, and 267 self-test questions that explain why the answer is the answer.</p></div>
+      <div class="app-card"><div class="ic">🃏</div><h4>Cards</h4><p>296 glossary terms as flashcards on a spaced schedule, so a term returns just before you would have lost it.</p></div>
+    </div>
+
+    <div class="shots">
+      <img src="assets/shot-1.jpg" alt="The app's home screen, with reading progress">
+      <img src="assets/shot-2.jpg" alt="The Labs hub — 24 interactive labs, one per chapter">
+      <img src="assets/shot-3.jpg" alt="The Token Splitter lab, showing a sentence broken into tokens">
+      <img src="assets/shot-4.jpg" alt="The RAG Builder lab, showing all five stages">
+      <img src="assets/shot-5.jpg" alt="A page of the printed edition, inside the app">
+    </div>
+
+    <div class="testing-box" id="tester-access">
+      <h3>The app is in closed testing on Google Play</h3>
+      <p>Installs are limited to approved testers while the app is in closed testing. Send the email on your Android device's Google account and I will add it to the tester list — you will then be able to install the app from the Play Store.</p>
+      <ul class="steps">
+        <li><span>1</span>Submit the Google account email your Android phone uses.</li>
+        <li><span>2</span>Wait for me to add you — usually within a day.</li>
+        <li><span>3</span>Open the Play Store link and install as normal.</li>
+      </ul>
+      <div class="btn-row" style="justify-content:center;">
+        <a class="btn btn-primary" href="https://forms.gle/nKVmZFRs8nbgZJMA9" target="_blank" rel="noopener">Request tester access</a>
+        <a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=iq.edu.epu.aife" target="_blank" rel="noopener">Already approved? Open Play Store</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>About</h4>
+        <p><b>Dr. Ismael Khorshed Abdulrahman</b><br>PhD, Electrical and Computer Engineering<br>Tennessee Technological University, USA<br>Erbil Polytechnic University, Iraq</p>
+        <p><a href="mailto:ismael.abdulrahman@epu.edu.iq">ismael.abdulrahman@epu.edu.iq</a></p>
+        <div class="cite-box mono">Abdulrahman, I. K. (2026). <i>Artificial Intelligence for Everyone: A Practical Guide to Understanding, Using, and Questioning AI.</i> First Edition.</div>
+      </div>
+      <div>
+        <h4>Links</h4>
+        <ul>
+          <li><a href="https://github.com/ismaelabdulrahman/artificial-intelligence-for-everyone" target="_blank" rel="noopener">GitHub repository</a></li>
+          <li><a href="book/Artificial-Intelligence-for-Everyone.pdf" target="_blank" rel="noopener">Download the book (PDF)</a></li>
+          <li><a href="#tester-access">The app on Google Play</a></li>
+          <li><a href="privacy.html">App privacy policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Related projects</h4>
+        <ul>
+          <li><a href="https://ismaelabdulrahman.github.io/machine-learning-for-everyone/" target="_blank" rel="noopener">Machine Learning for Everyone</a></li>
+          <li><a href="https://ismaelabdulrahman.github.io/psdat-book/" target="_blank" rel="noopener">PSDAT — Power System Dynamics of Renewable-Dominated Grids</a></li>
+        </ul>
+        <h4 style="margin-top:22px;">License</h4>
+        <p style="margin:0;">Site &amp; app code: MIT License.<br>Book content: © 2026, all rights reserved.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Ismael Khorshed Abdulrahman · Erbil Polytechnic University</span>
+      <span>Free for anyone who wishes to learn.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
